@@ -22,7 +22,7 @@ class Navv(NavigationBar):
             case 0:
                 self.page.add(home.Home())
             case 1:
-                self.page.controls.append(TextButton("test"))
+                self.page.controls.append(Image("/icon.png"))
 
         self.page.update()
 

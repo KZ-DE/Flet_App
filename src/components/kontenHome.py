@@ -2,21 +2,24 @@ from flet import *
 
 
 class HomeKonten(Card):
-    def __init__(self, title):
+    def __init__(self, title: str, src: str, subtitle: str | None = None,):
         super().__init__()
         self.title = title
-        self.content = self.kontainer()
+        self.subtitle = subtitle
+        self.src = src
 
     def clicked_konten(self, e):
         print("hello")
+        # self.page.update()
 
     def kontainer(self):
         return Container(
             content=Column(
                 controls=[
                     ListTile(
-                        leading=Icon(icons.SETTINGS),
+                        leading=Image(self.src, fit="contain"),
                         title=Text(self.title),
+                        subtitle=Text(self.subtitle),
                         on_click=self.clicked_konten
                     )
                 ]
@@ -24,4 +27,5 @@ class HomeKonten(Card):
         )
 
     def build(self):
+        self.content = self.kontainer()
         return self.content
