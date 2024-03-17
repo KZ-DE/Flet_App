@@ -1,37 +1,21 @@
 from flet import *
-from components.kontenHome import HomeKonten
-from views.routers import Halaman
+from components import templet
+from views import konten
 
 
 class Home(UserControl):
     def __init__(self):
         super().__init__()
         self.isi_konten = [
-            self.konten(),
-            self.konten(),
-            HomeKonten("testing bikin aplikasi sendiri", 'icon.png', "aaaa"),
-            HomeKonten("testing bikin aplikasi sendiri", 'icon.png'),
+            templet.HomeKonten(
+                title="testing bikin aplikasi sendiri", src='icon.png', subtitle="aaaa",
+                go='/test'
+            ),
+            templet.HomeKonten(
+                title="testing bikin aplikasi sendiri", src='icon.png',
+                go='/test2'
+            ),
         ]
-
-    def clicked_konten(self, e):
-        print("Yes")
-        self.page.go('/')
-        self.page.update()
-
-    def konten(self):
-        return Card(
-            content=Container(
-                content=Column(
-                    controls=[
-                        ListTile(
-                            leading=Icon(icons.SETTINGS),
-                            title=Text("One-line selected list tile"),
-                            on_click=self.clicked_konten
-                        )
-                    ]
-                )
-            )
-        )
 
     def build(self):
         return ListView(

@@ -1,23 +1,31 @@
 from flet import *
-from components import navbar
-from pages import home
+from views import homeV, konten
+
+data = {
+    '/test': konten.K1(),
+    '/test2': konten.K2()
+}
 
 
 def main(page: Page):
-    # konfigurasi
-    page.title = "My App"
-    page.theme_mode = ThemeMode.SYSTEM
-    page.padding = 0
-    page.scroll = ScrollMode.HIDDEN
+    page.title = "Routes Example"
 
-    # navbar
-    page.navigation_bar = navbar.Navv(page)
+    def route_change(route):
+        page.views.clear()
+        page.views.append(homeV.Homes())
+        if page.route != "/":
+            page.views.append(data[page.route])
+        page.update()
+        print(f"views = {page.views} page route = {page.route}")
 
-    # main page
-    page.add(home.Home())
+    def view_pop(view):
+        page.views.pop()
+        top_view = page.views[-1]
+        page.go(top_view.route)
 
-    # update
-    page.update()
+    page.on_route_change = route_change
+    page.on_view_pop = view_pop
+    page.go(page.route)
 
 
-app(main)
+app(target=main)
