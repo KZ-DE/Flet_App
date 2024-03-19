@@ -1,6 +1,5 @@
 from flet import *
 from components import templet
-from views import konten
 
 
 class Home(UserControl):
